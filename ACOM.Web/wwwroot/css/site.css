@@ -1,0 +1,245 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.acom-controller {
+    background-color: #e8e8e8;
+    border: 2px solid #999;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.control-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: 2px solid #666;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-standby {
+    background-color: #4169e1;
+    color: white;
+}
+
+.btn-operate {
+    background-color: #32cd32;
+    color: white;
+}
+
+.btn-off {
+    background-color: #dc143c;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #4169e1;
+    color: white;
+}
+
+.status-display {
+    text-align: right;
+}
+
+.status-text {
+    font-size: 24px;
+    font-weight: bold;
+    display: block;
+}
+
+.status-text.standby { color: #4169e1; }
+.status-text.receive { color: #32cd32; }
+.status-text.transmit { color: #dc143c; }
+.status-text.off { color: #808080; }
+
+.band-text {
+    font-size: 14px;
+    color: #666;
+}
+
+.telemetry-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.metric-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.metric-row label {
+    width: 70px;
+    font-size: 12px;
+    color: #333;
+}
+
+.progress-container {
+    flex: 1;
+}
+
+.progress-bar {
+    height: 16px;
+    background-color: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+}
+
+.progress-fill {
+    height: 100%;
+    transition: width 0.2s;
+}
+
+.progress-fill.normal {
+    background-color: #4169e1;
+}
+
+.progress-fill.warning {
+    background-color: #dc143c;
+}
+
+.progress-fill.reflected {
+    background-color: #808080;
+}
+
+.progress-fill.temp {
+    background-color: #32cd32;
+}
+
+.progress-fill.temp.warning {
+    background-color: #dc143c;
+}
+
+.value {
+    width: 60px;
+    text-align: right;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.optional-metrics {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.metric-value {
+    font-size: 11px;
+    color: #666;
+}
+
+.error-banner {
+    background-color: #ffd700;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #e8e8e8;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    border: 2px solid #999;
+}
+
+.modal-content h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Connection status */
+.disconnected .status-text {
+    color: #999 !important;
+}
+
+.disconnected .value {
+    color: #999;
+}

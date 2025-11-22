@@ -1,0 +1,121 @@
+@model HomeViewModel
+
+<div class="acom-controller">
+    <div class="control-panel">
+        <div class="buttons">
+            <button id="standbyBtn" class="btn btn-standby" title="Right-click for settings">STANDBY</button>
+            <button id="operateBtn" class="btn btn-operate">OPERATE</button>
+            <button id="offBtn" class="btn btn-off">OFF</button>
+        </div>
+
+        <div class="status-display">
+            <span id="statusLabel" class="status-text">--</span>
+            <span id="bandLabel" class="band-text">--</span>
+        </div>
+    </div>
+
+    <div class="telemetry-panel">
+        <div class="metric-row">
+            <label>Output:</label>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="pwrBar" class="progress-fill normal"></div>
+                    <div id="pwrBarRed" class="progress-fill warning"></div>
+                </div>
+            </div>
+            <span id="pwrLabel" class="value">--W</span>
+        </div>
+
+        <div class="metric-row">
+            <label>Drive:</label>
+            <span id="driveLabel" class="value">--W</span>
+        </div>
+
+        <div class="metric-row">
+            <label>Reflected:</label>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="reflBar" class="progress-fill reflected"></div>
+                    <div id="reflBarRed" class="progress-fill warning"></div>
+                </div>
+            </div>
+            <span id="reflLabel" class="value">--R</span>
+        </div>
+
+        <div class="metric-row" id="tempRow">
+            <label>Temp:</label>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="tempBar" class="progress-fill temp"></div>
+                </div>
+            </div>
+            <span id="tempLabel" class="value">--°C</span>
+        </div>
+
+        <div class="optional-metrics">
+            <span id="swrLabel" class="metric-value"></span>
+            <span id="effLabel" class="metric-value"></span>
+            <span id="gainLabel" class="metric-value"></span>
+            <span id="fanLabel" class="metric-value"></span>
+        </div>
+    </div>
+
+    <div id="errorBanner" class="error-banner" style="display: none;">
+        <span id="errorText"></span>
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <h3>Configuration</h3>
+        <div class="form-group">
+            <label for="modelSelect">PA Model:</label>
+            <select id="modelSelect">
+                @foreach (var ampModel in Model.AvailableModels)
+                {
+                    <option value="@ampModel" selected="@(ampModel == Model.Settings.AmplifierModel)">@ampModel</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="portSelect">COM Port:</label>
+            <select id="portSelect">
+                @foreach (var port in Model.AvailablePorts)
+                {
+                    <option value="@port" selected="@(port == Model.Settings.ComPort)">@port</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="showEfficiency" @(Model.Settings.ShowEfficiency ? "checked" : "") />
+                Show Efficiency
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="showGain" @(Model.Settings.ShowGain ? "checked" : "") />
+                Show Gain
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="showSwr" @(Model.Settings.ShowSwr ? "checked" : "") />
+                Show SWR
+            </label>
+        </div>
+        <div class="modal-buttons">
+            <button id="saveSettings" class="btn btn-primary">OK</button>
+            <button id="cancelSettings" class="btn">Cancel</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const modelConfig = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ModelConfig));
+        const settings = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.Settings));
+    </script>
+    <script src="~/js/site.js"></script>
+}
